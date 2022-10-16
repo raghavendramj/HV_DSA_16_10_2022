@@ -47,7 +47,7 @@ class LinkedList {
     if (index < 0 || index > this.size) {
       return console.log("Please enter a valid index!");
     } else {
-      let newNode = new Node(element);
+      let node = new Node(element);
 
       let cur, prev;
       cur = this.head;
@@ -71,5 +71,30 @@ class LinkedList {
         prev.next = node;
       }
     }
+    this.size++;
+  }
+
+  removeFrom(index) {
+    if (index < 0 || index >= this.size) {
+      return console.log("Please enter a valid index");
+    } else {
+      let cur, prev;
+      cur = this.head;
+      let iterator = 0;
+
+      if (index == 0) {
+        //Case1:- Remove element at the beginning.
+        this.head = cur.next;
+      } else {
+        //Helps us to reach at the specific index - 1
+        while (iterator < index) {
+          iterator++;
+          prev = cur;
+          cur = cur.next;
+        }
+        prev.next = cur.next;
+      }
+    }
+    this.size--;
   }
 }
