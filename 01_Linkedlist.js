@@ -6,8 +6,6 @@ class Node {
     this.next = null;
   }
 }
-let firstNode = new Node(10);
-console.log("First Node :- ", firstNode);
 
 class LinkedList {
   constructor() {
@@ -74,6 +72,27 @@ class LinkedList {
     this.size++;
   }
 
+  //Insert the element at the end of the list
+  add(element) {
+    let node = new Node(element);
+
+    let cur;
+
+    if (this.head == null) {
+      this.head = node;
+    } else {
+      cur = this.head;
+
+      while (cur.next) {
+        cur = cur.next;
+      }
+
+      cur.next = node;
+    }
+
+    this.size++;
+  }
+
   removeFrom(index) {
     if (index < 0 || index >= this.size) {
       return console.log("Please enter a valid index");
@@ -104,17 +123,64 @@ class LinkedList {
     let prev = null;
 
     while (curr != null) {
+      console.log("Current elements:- ", curr.element);
       if (curr.element === element) {
         if (prev == null) {
           this.head = curr.next;
         } else {
           prev.next = curr.next;
-        }
+        } 
+        this.size--;
+        return curr.element;
       }
       prev = curr;
       curr = curr.next;
     }
-    this.size--;
-    return curr.element;
+  }
+
+  searchIndexOf(element) {
+    let count = 0;
+    let cur = this.head;
+
+    while (cur != null) {
+      if (cur.element == element) {
+        return count;
+      }
+      count++;
+      cur = cur.next;
+    }
+
+    return -1;
+  }
+
+  printList() {
+    let cur = this.head;
+    let str = " ";
+    while (cur) {
+      str += cur.element;
+      if (cur.next != null) {
+        str += " -> ";
+      }
+      cur = cur.next;
+    }
+    console.log("Linked list :- ", str);
   }
 }
+
+let linkedList = new LinkedList();
+linkedList.add(10);
+linkedList.add(20);
+linkedList.add(30);
+linkedList.add(40);
+linkedList.add(50);
+
+linkedList.printList();
+
+let removedElement = linkedList.removeElement(50);
+console.log("Removed element :- ", removedElement);
+linkedList.printList();
+
+console.log("Index of 40 is :- ", linkedList.searchIndexOf(40));
+
+linkedList.insertAt(60, 2);
+linkedList.printList();
