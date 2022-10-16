@@ -96,5 +96,25 @@ class LinkedList {
       }
     }
     this.size--;
+    return curr.element;
+  }
+
+  removeElement(element) {
+    let curr = this.head;
+    let prev = null;
+
+    while (curr != null) {
+      if (curr.element === element) {
+        if (prev == null) {
+          this.head = curr.next;
+        } else {
+          prev.next = curr.next;
+        }
+      }
+      prev = curr;
+      curr = curr.next;
+    }
+    this.size--;
+    return curr.element;
   }
 }
